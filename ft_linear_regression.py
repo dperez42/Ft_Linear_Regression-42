@@ -52,8 +52,6 @@ class linear_regression :
         #print("Raw data:")
         #self.print_data()
 
-    #def errores (self):
-
     def errors(self):
         """
         Calcula métricas de error para el modelo:
@@ -99,7 +97,6 @@ class linear_regression :
         r2 = 1 - (ss_res / ss_tot) if ss_tot != 0 else 0
 
         return mae, mse, rmse, r2
-
 
     def get_gradientBiass(self) :
         i = 0
@@ -330,7 +327,7 @@ class linear_regression :
             self.theta_1 = (max_x_pred - min_x_pred) / (max_x - min_x)
             self.theta_0 = min_x_pred - self.theta_1 *  min_x     
     
-    def train_model(self, flags): #learning_rate, print_error, scaler, loss_function) :
+    def train_model(self, flags): 
         print("Training Model....")
         self.flags = flags
         self.learning_rate = flags["learning_rate"]
