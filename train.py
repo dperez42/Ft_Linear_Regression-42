@@ -5,37 +5,137 @@ from pathlib import Path
 import  os
 # Clase linear_regression
 from ft_linear_regression import linear_regression
+from datetime import datetime
 
-flags = {"plot_standardized": 0, "plot_original": 0, "print_error": 0}
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+BLUE = "\033[94m"
+RESET = "\033[0m"  # Reset to default color
+
+flags = {"scaler": 1, "plot_standardized": 0, "plot_original": 0, "plot_loss":0, "print_error": 0, "loss_function": "MAE", "target_function": "DELTA_LOSS", "target_value":0, "learning_rate":0}
 learning_rate = 0
 
 # checking flags and filename of data file
 no_flag_cont = 0
+scaler_cont = 0
+loss_cont = 0
+target_cont = 0
 data_filename = ""
+error = False
 for arg in sys.argv :
     if arg.startswith("-"): # check flags
         check = False
-        if arg == "-s" :
+        if arg == "-sm" :
+            flags["scaler"] = 1
+            scaler_cont += 1
+            check = True
+        if arg == "-ss" :
+            flags["scaler"] = 2
+            scaler_cont += 1
+            check = True
+        if arg == "-ps" :
             flags["plot_standardized"] = 1
             check = True
-        if arg == "-o" :
+        if arg == "-po" :
+            flags["plot_original"] = 1
+            check = True
+        if arg == "-pl" :
+            flags["plot_loss"] = 1
+            check = True
+        if arg == "-po" :
             flags["plot_original"] = 1
             check = True
         if arg == "-err" :
             flags["print_error"] = 1
             check = True
-        if arg == "-e" :
-            learning_rate = -1.0
+        if arg == "-mae" :
+            flags["loss_function"] = 'MAE'
+            loss_cont += 1
+            check = True
+        if arg == "-mse" :
+            flags["loss_function"] = 'MSE'
+            loss_cont += 1
+            check = True
+        if arg == "-dd" :
+            flags["target_function"] = 'DELTA_LOSS'
+            target_cont += 1
+            check = True
+        if arg == "-de" :
+            flags["target_function"] = 'NUMBER_EPOCHS'
+            target_cont += 1
             check = True
         if check == False:
-            print ("Error: Unknown flag.", arg)
-            print ("Flags: -s, -o, -err, -e.")
-            sys.exit()
+            print (f"{RED}Error: Unknown flag.{RESET}", arg)
+            error = True
+    
     else:
         no_flag_cont = no_flag_cont + 1
         data_filename = arg
-if no_flag_cont > 2:
-    print ("Error: Too many no flag parameters.", no_flag_cont)
+
+if (scaler_cont>1):
+    print (f"{RED}Error: Too many scaler methods choose one. -sm or -ss.{RESET}", scaler_cont)
+    error = True
+    
+if (loss_cont>1):
+    print (f"{RED}Error: Too many loss function chosse only one. -mae or -mse.{RESET}", loss_cont)
+    error = True
+if (target_cont>1):
+    print (f"{RED}Error: Too many target function chosse only one. -dd or -de.{RESET}", loss_cont)
+    error = True
+if no_flag_cont != 2 :
+    print (f"{RED}Error: Incorrect number of parameters.{RESET}", no_flag_cont)
+    error = True
+    
+if error:
+    print (f"{GREEN}Usage: python train.py <data_file.csv> <flags>{RESET}")
+    print ("Choose Standarization method flags:")
+    print ("-sm (default) Min Max ")
+    print ("-ss")
+    print ("Choose Loss function flags:")
+    print ("-mae (default)")
+    print ("-mse")
+    print ("Choose Objective flags:")
+    print ("-dd (default= 0.0000001) : Define delta loss between epochs")
+    print ("-de : Define number of epochs")
+    print ("Plotting flags:")
+    print ("-po : data")
+    print ("-ps : Plot standarize data")
+    print ("-pl : Plot loss")
+    print ("View logs:")
+    print ("-err ")
+    sys.exit()
+if (flags["target_function"]=="NUMBER_EPOCHS"):
+    val = input("Number of epochs (1000): ")
+    if not val:
+       val = 1000
+    print(val)
+    try:
+        flags["target_value"] = int(val)
+    except ValueError:
+        print(f"{RED}{val} is NOT a valid positive integer number.{RESET}")
+    if (flags["target_value"] < 1) :
+        print (f"{RED}Error: Number of epochs >0{RESET}")
+        sys.exit()
+if (flags["target_function"]=="DELTA_LOSS"):
+    val = input("Delta Loss ( 0.0000001): ")
+    if not val:
+        val = 0.0000001
+    print(val)
+    try:
+        flags["target_value"] = float(val)
+    except ValueError:
+        print(f"{RED}{val} is NOT a valid positive number.{RESET}")
+
+val = input("Input Learning Rate <0.00000001 or >1 (0.1) :")
+if not val:
+    val = 0.1
+try:
+    flags["learning_rate"] = float(val)
+except ValueError:
+    print(f"{RED}{val} is NOT a valid positive number.{RESET}")
+if (flags["learning_rate"] < 0.0000001 or flags["learning_rate"] > 1) :
+    print (f"{RED}Error: Learning rate <0.00000001 or >1{RESET}")
     sys.exit()
 
 # Check if file is correct
@@ -50,23 +150,25 @@ if (os.access(check_file, os.R_OK) == False) :
 if check_file.suffix != '.csv':
     sys.exit("Error: File {:} has to be a csv".format(check_file))
 
-if (learning_rate < 0.0000001 or learning_rate > 1) :
-    learning_rate = 0.1
-
 print(flags)
+#exit()
 print(data_filename)
 
+# Start Trainning
+print("Start Training.")
+# Create object
 data = linear_regression(data_filename)
-
-data.train_model(learning_rate, flags["print_error"])
-data.save_model("my_model")
-
-data2 = linear_regression()
-data2.load_model("my_model.csv")
-data2.print_coeficientes()
-print(data2.predict(100000))
-
-if flags["plot_original"] == 1 :
-    data.plot_value()
+# Train
+data.train_model(flags) 
+# Save
+filename = "modelo"
+fecha_actual = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+filename_with_date = f"{filename}_{fecha_actual}.csv"
+data.save_model("model")
+# Show results
 if flags["plot_standardized"] == 1 :
-    data.plot_standardized_value()
+    data.plot_predict_standardized()
+if flags["plot_original"] == 1 :
+    data.plot()
+if flags["plot_loss"] == 1 :
+    data.plot_loss()
