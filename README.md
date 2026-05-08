@@ -83,6 +83,9 @@ The loss function used in our linear regression is the **Mean Absolute Error** (
 $$
 MAE = \frac{1}{m}  \sum_{i=1}^{m} | \hat{y_{i}} - y_{i} |
 $$
+$$
+MSE = \frac{1}{m}  \sum_{i=1}^{m} ( \hat{y_{i}} - y_{i} )^2
+$$
 
 Where:
 
@@ -103,6 +106,8 @@ The MAE will be:
 $$
 MAE = \frac{|1000 - 900| + |2000 - 1900| + |3000 - 3100|}{3} = 100
 $$
+
+
 
 Here, the MAE is 100, which means that our model is off by 100 on average.
 
