@@ -106,7 +106,7 @@ class linear_regression :
                 if (self.loss_function=="MAE"):
                     tmp_summ += (self.predict_tmp(line[0]) - float(line[1]))
                 if (self.loss_function=="MSE"):
-                    tmp_summ += (self.predict_tmp(line[0]) - float(line[1]))*2
+                    tmp_summ += (self.predict_tmp(line[0]) - float(line[1])) * 2
             i += 1
         
         return (tmp_summ / (i - 1))
