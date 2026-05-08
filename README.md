@@ -126,7 +126,7 @@ $$
 MSE = \frac{(1000 - 900)^2 + (2000 - 1900)^2 + (3000 - 3100)^2}{3} = 10000
 $$
 
-Here, the MSE is 100, which means that our model is off by 100 on average.
+Here, the MSE is 10000, which means that our model is off by 10000 on average.
 
 > Unless your data points are perfectly aligned, the MAE will never be 0, it is totally normal to have a loss.
 
