@@ -158,7 +158,7 @@ $$
 When using **MSE** loss function is:
 
 $$
-θ_{0} = θ_{0} - α \frac{1}{m} \sum_{i=1}^{m}(\hat{y}\_{i} - y\_{i})^2
+θ_{0} = θ_{0} - α \frac{1}{m} \sum_{i=1}^{m}(\hat{y}\_{i} - y\_{i})*2
 $$
 
 $$
