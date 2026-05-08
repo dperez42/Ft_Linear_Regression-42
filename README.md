@@ -61,10 +61,10 @@ The two most common methods to remove the sign are the following:
 In linear regression, there are five main types of loss.
 
 - $L_{1} loss$: The sum of the absolute values of the difference between the predicted values and the actual values.
-- $Mean absolute error (MAE)$: The average of $L_{1}$ losses across a set of N examples.
+- Mean absolute error $(MAE)$: The average of $L_{1}$ losses across a set of N examples.
 - $L_{2} loss$: The sum of the squared difference between the predicted values and the actual values.
-- $Mean squared error (MSE)$: The average of $L_{2}$ losses across a set of N examples.
-- $Root mean squared error (RMSE)$: The square root of the mean squared error (MSE).
+- Mean squared error $(MSE)$: The average of $L_{2}$ losses across a set of N examples.
+- Root mean squared error $(RMSE)$: The square root of the mean squared error (MSE).
 
 The functional difference between L1 loss and L2 loss (or between MAE/RMSE and MSE) is squaring. When the difference between the prediction and label is large, squaring makes the loss even larger. When the difference is small (less than 1), squaring makes the loss even smaller.
 
@@ -82,9 +82,6 @@ The loss function used in our linear regression is the **Mean Absolute Error** (
 
 $$
 MAE = \frac{1}{m}  \sum_{i=1}^{m} | \hat{y_{i}} - y_{i} |
-$$
-$$
-MSE = \frac{1}{m}  \sum_{i=1}^{m} ( \hat{y_{i}} - y_{i} )^2
 $$
 
 Where:
@@ -112,6 +109,19 @@ $$
 Here, the MAE is 100, which means that our model is off by 100 on average.
 
 > Unless your data points are perfectly aligned, the MAE will never be 0, it is totally normal to have a loss.
+
+Other loss function used in our linear regression is the **Mean Squared Error** (MSE).
+
+$$
+MSE = \frac{1}{m}  \sum_{i=1}^{m} ( \hat{y_{i}} - y_{i} )^2
+$$
+
+Where:
+
+- $m$ is the number of samples
+- $\hat{y}$ is the predicted value
+- $y$ is the actual value
+
 
 Now that we know how to measure the precision of our model, we need to find the best $θ_{0}$ and $θ_{1}$ that minimize this loss function.
 
