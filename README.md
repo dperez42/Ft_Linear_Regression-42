@@ -145,7 +145,7 @@ The algorithm works as follows:
 3. Update the $θ_{0}$ and $θ_{1}$ in the opposite direction of the gradient (subtract it)
 4. Repeat steps 2 and 3 until the loss function converges (i.e. stagnates)
 
-The formula to update the $θ_{0}$ and $θ_{1}$ is:
+The formula to update the $θ_{0}$ and $θ_{1}$ when using **MAE** loss function is:
 
 $$
 θ_{0} = θ_{0} - α \frac{1}{m} \sum_{i=1}^{m}(\hat{y}\_{i} - y\_{i})
@@ -153,6 +153,16 @@ $$
 
 $$
 θ_{1} = θ_{1} - α \frac{1}{m} \sum_{i=1}^{m}((\hat{y}\_{i} - y\_{i}) * x\_{i})
+$$
+
+When using **MSE** loss function is:
+
+$$
+θ_{0} = θ_{0} - α \frac{1}{m} \sum_{i=1}^{m}(\hat{y}\_{i} - y\_{i})^2
+$$
+
+$$
+θ_{1} = θ_{1} - α \frac{1}{m} \sum_{i=1}^{m}((\hat{y}\_{i} - y\_{i}) *2 x\_{i})
 $$
 
 Where:
