@@ -58,6 +58,11 @@ The two most common methods to remove the sign are the following:
 
 ### Types of loss
 
+In linear regression, there are five main types of loss.
+
+- $L_{1} loss$: 
+- Mean absolute error (MAE):
+- $L_{2} loss$:
 
 The loss function used in our linear regression is the **Mean Absolute Error** (MAE).
 
