@@ -122,6 +122,11 @@ Where:
 - $\hat{y}$ is the predicted value
 - $y$ is the actual value
 
+Using the same data points of above the MSE will be:
+
+$$
+MSE = \frac{(1000 - 900)^2 + (2000 - 1900)^2 + (3000 - 3100)^2}{3} = 100
+$$
 
 Now that we know how to measure the precision of our model, we need to find the best $θ_{0}$ and $θ_{1}$ that minimize this loss function.
 
