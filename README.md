@@ -108,8 +108,6 @@ $$
 
 Here, the MAE is 100, which means that our model is off by 100 on average.
 
-> Unless your data points are perfectly aligned, the MAE will never be 0, it is totally normal to have a loss.
-
 Other loss function used in our linear regression is the **Mean Squared Error** (MSE).
 
 $$
@@ -125,8 +123,12 @@ Where:
 Using the same data points of above the MSE will be:
 
 $$
-MSE = \frac{(1000 - 900)^2 + (2000 - 1900)^2 + (3000 - 3100)^2}{3} = 100
+MSE = \frac{(1000 - 900)^2 + (2000 - 1900)^2 + (3000 - 3100)^2}{3} = 10000
 $$
+
+Here, the MSE is 100, which means that our model is off by 100 on average.
+
+> Unless your data points are perfectly aligned, the MAE will never be 0, it is totally normal to have a loss.
 
 Now that we know how to measure the precision of our model, we need to find the best $θ_{0}$ and $θ_{1}$ that minimize this loss function.
 
