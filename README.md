@@ -191,6 +191,29 @@ Why do we use these formulas to update the $θ_{0}$ and $θ_{1}$?
 >
 > $tmpθ_{1} = θ_{1} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(mileage[i]) - price[i]) * mileage[i]$
 
+## Hyperparameters
+
+**Learning rate**
+
+Learning rate is a floating point number you set that influences how quickly the model converges. If the learning rate is too low, the model can take a long time to converge. However, if the learning rate is too high, the model never converges, but instead bounces around the weights and bias that minimize the loss. The goal is to pick a learning rate that's not too high nor too low so that the model converges quickly.
+
+The learning rate determines the magnitude of the changes to make to the weights and bias during each step of the gradient descent process. The model multiplies the gradient by the learning rate to determine the model's parameters (weight and bias values) for the next iteration. In the third step of gradient descent, the "small amount" to move in the direction of negative slope refers to the learning rate.
+
+The difference between the old model parameters and the new model parameters is proportional to the slope of the loss function. For example, if the slope is large, the model takes a large step. If small, it takes a small step. For example, if the gradient's magnitude is 2.5 and the learning rate is 0.01, then the model will change the parameter by 0.025.
+
+A learning rate that's too small can take too many iterations to converge.
+
+A learning rate that's too large never converges because each iteration either causes the loss to bounce around or continually increase.
+
+The ideal learning rate helps the model to converge within a reasonable number of iterations.
+
+**Epochs**
+
+During training, an epoch means that the model has processed every example in the training set once.
+Training typically requires many epochs. That is, the system needs to process every example in the training set multiple times.
+
+The number of epochs is a hyperparameter you set before the model begins training. In many cases, you'll need to experiment with how many epochs it takes for the model to converge. In general, more epochs produces a better model, but also takes more time to train.
+
 ## Feature Scaling
 
 If we implement this code as is, we might run into a problem: the mileage is in the thousands, while the price is in the tens of thousands.
@@ -243,6 +266,9 @@ Now that we know all the concepts needed for the project, we can summarize the s
 8. Save $θ_{0}$ and $θ_{1}$ to a file
 
 # Resources
+- [📖 Crash Course Linear Regression](https://developers.google.com/machine-learning/crash-course/linear-regression)
+
+- [📖 Normalization and Standardization](https://www.geeksforgeeks.org/machine-learning/feature-engineering-scaling-normalization-and-standardization/)
 
 - [📖 How Neural Networks Learn using Gradient Descent](https://bhatnagar91.medium.com/how-neural-networks-learn-using-gradient-descent-f48c2e4079a6)
 
@@ -258,4 +284,4 @@ Now that we know all the concepts needed for the project, we can summarize the s
 
 - [📖 14 Loss functions you can use for Regression](https://medium.com/@mlblogging.k/14-loss-functions-you-can-use-for-regression-b24db8dff987)
 
-- **Thanks to [albagar4](https://github.com/albagar4) for the explanation of the coefficient and bias update formulas.**
+- **Thanks to [leogaudin](https://github.com/leogaudin) for the explanation of the coefficient and bias update formulas.**
