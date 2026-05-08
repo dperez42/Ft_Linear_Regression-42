@@ -60,9 +60,23 @@ The two most common methods to remove the sign are the following:
 
 In linear regression, there are five main types of loss.
 
-- $L_{1} loss$: 
-- Mean absolute error (MAE):
-- $L_{2} loss$:
+- $L_{1} loss$: The sum of the absolute values of the difference between the predicted values and the actual values.
+- $Mean absolute error (MAE)$: The average of $L_{1}$ losses across a set of N examples.
+- $L_{2} loss$: The sum of the squared difference between the predicted values and the actual values.
+- $Mean squared error (MSE)$: The average of $L_{2}$ losses across a set of N examples.
+- $Root mean squared error (RMSE)$: The square root of the mean squared error (MSE).
+
+The functional difference between L1 loss and L2 loss (or between MAE/RMSE and MSE) is squaring. When the difference between the prediction and label is large, squaring makes the loss even larger. When the difference is small (less than 1), squaring makes the loss even smaller.
+
+Loss metrics like MAE and RMSE may be preferable to L2 loss or MSE in some use cases because they tend to be more human-interpretable, as they measure error using the same scale as the model's predicted value.
+
+When processing multiple examples at once, we recommend averaging the losses across all the examples, whether using MAE, MSE, or RMSE.
+
+Note the relationship between the model and the data:
+
+- MSE. The model is closer to the outliers but further away from most of the other data points.
+- MAE. The model is further away from the outliers but closer to most of the other data points.
+
 
 The loss function used in our linear regression is the **Mean Absolute Error** (MAE).
 
