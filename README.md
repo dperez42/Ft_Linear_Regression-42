@@ -186,11 +186,12 @@ Why do we use these formulas to update the $θ_{0}$ and $θ_{1}$?
 > You might have noticed that the two update formulas I provided are literally the ones in the subject:
 >
 > For MAE:
-> $tmpθ_{0} = θ_{0} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(mileage[i]) - price[i])$
-> $tmpθ_{1} = θ_{1} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(mileage[i]) - price[i]) * kms[i]$
+> $tmpθ_{0} = θ_{0} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(kms[i]) - price[i])$
+> $tmpθ_{1} = θ_{1} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(kms[i]) - price[i]) * kms[i]$
+>
 > For MSE:
-> $tmpθ_{0} = θ_{0} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(mileage[i]) - price[i])^2$
-> $tmpθ_{1} = θ_{1} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(mileage[i]) - price[i]) * 2 * kms[i]$
+> $tmpθ_{0} = θ_{0} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(kms[i]) - price[i])^2$
+> $tmpθ_{1} = θ_{1} - learningRate * \frac{1}{m} \sum_{i=0}^{m - 1} (estimatePrice(kms[i]) - price[i]) * 2 * kms[i]$
 
 ## Hyperparameters
 
