@@ -20,7 +20,7 @@ We will have to implement a program that predicts the price of a car by using a 
 
 ## Trainning
 
-Usage: python train.py <data_file.csv> <flags>
+**Usage: python train.py <data_file.csv> <flags>**
 
 Choose Standarization method flags:
 -sm (default): Min Max Feature Scaling.
