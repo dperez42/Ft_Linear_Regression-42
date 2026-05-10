@@ -46,7 +46,7 @@ python .\train.py data.csv  -mse -dd -sm -po -ps -pl -err
 
 ## Make a prediction
 
-python .\predict.py model.csv
+**python .\predict.py model.csv**
 
 You will prompted to enter kms.
 
