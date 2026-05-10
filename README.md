@@ -18,6 +18,8 @@ We will have to implement a program that predicts the price of a car by using a 
 
 # Usage
 
+## Trainning
+
 Usage: python train.py <data_file.csv> <flags>
 
 Choose Standarization method flags:
@@ -39,11 +41,14 @@ Choose Plotting flags:
 
 Choose Logs flags:
 -err : To view logs while trainning.
-## Trainning
+
+python .\train.py data.csv  -mse -dd -sm -po -ps -pl -err
 
 ## Make a prediction
 
+python .\predict.py model.csv
 
+You will prompted to enter kms.
 
 # Concepts needed for the project
 
