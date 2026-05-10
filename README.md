@@ -11,7 +11,7 @@ We will have to implement a program that predicts the price of a car by using a 
 > The first part is literally *read a file, parse floats and use them to compute user input*.
 
 ## Table of Contents
-
+- [Usage](#usage) 
 - [Concepts needed for the project](#concepts-needed-for-the-project) 🧠
 	- [Linear Regression](#linear-regression) 📈
 	- [Gradient Descent](#gradient-descent) 📉
@@ -19,6 +19,8 @@ We will have to implement a program that predicts the price of a car by using a 
 	- [Feature Scaling](#feature-scaling) 📏
 	- [Wrapping it up](#wrapping-it-up) 🎁
 - [Resources](#resources) 📖
+
+# Usage
 
 # Concepts needed for the project
 
@@ -228,7 +230,9 @@ This means that the $θ_{1}$ will be updated more for the mileage than for the p
 
 To avoid this, we need to scale the features.
 
-In our case, we will use the **standardization** method (because the min-max scaling was a pain to reverse later).
+In our case, we can choose between **standardization** method and **min-max scaling**.
+
+**standardization**
 
 $$
 x_{scaled} = \frac{x - μ}{σ}
@@ -255,6 +259,10 @@ The scaled mileage will be:
 $$
 mileage_{scaled} = \left[ \frac{1000 - 2000}{816.5}, \frac{2000 - 2000}{816.5}, \frac{3000 - 2000}{816.5} \right] = [-1.22, 0, 1.22]
 $$
+
+**min-max scaling**
+
+Pending
 
 ## Wrapping it up
 

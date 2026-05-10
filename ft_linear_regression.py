@@ -194,28 +194,20 @@ class linear_regression :
                 line[1] = (float(line[1]) - self.mean_y) / (self.std_dev_y)
             i += 1
 
-    def plot_standardized(self, title = "None") :
-        tmp_val = self.data_scaler.copy()
-        tmp_val.pop(0)
-        # Convert to numeric if needed
-        tmp_val = [(float(x), float(y)) for x, y in tmp_val]
-        # Separate into X and Y lists
-        x_vals = [row[0] for row in tmp_val]
-        y_vals = [row[1] for row in tmp_val]
-        plt.title('Standardized values: '+ title)
-        plt.xlabel('Mileage')
-        plt.ylabel('Price')
-        plt.plot(x_vals, y_vals, 'ro')
-        plt.grid(True)
-        plt.show()
-    
-    def plot_predict_standardized(self, title = "None") :
+    def plot(self, std = False, predict = False) :
         title = ""
+        scaler = ""
         if (self.scaler  == 1):
-            title =  "MinMax" 
+            scaler =  "MINMAX" 
         else:
-            title = "Standardized"
-        tmp_val = self.data_scaler.copy()
+            scaler = "STD"
+        if (std):
+            tmp_val = self.data_scaler.copy()
+            title = "Data Standarized"
+        else:
+            tmp_val = self.data.copy()
+            title = "Data Original"
+        # Drop header
         tmp_val.pop(0)
         # Convert to numeric if needed
         tmp_val = [(float(x), float(y)) for x, y in tmp_val]
@@ -223,48 +215,31 @@ class linear_regression :
         x_vals = [row[0] for row in tmp_val]
         y_vals = [row[1] for row in tmp_val]
         # Prepare predicted values in the same X order
-        plot_val = [x_vals, [self.predict_tmp(x) for x in x_vals]]
-
-        #tmp_val = list(zip(*tmp_val))
-        #tmp_val = [list(tmp_val[0]), list(tmp_val[1])]
-        #plot_val = [[], []]
-        #for i in tmp_val[0] :
-        #    plot_val[0].append(i)
-        #for i in tmp_val[0] :
-        #    plot_val[1].append(self.predict_tmp(i))
-        plt.title('Standardized values: '+ title)
-        plt.xlabel('Mileage')
+        if (predict):
+            title = title + " vs Predict"
+            if (std):
+                plot_val = [x_vals, [self.predict_tmp(x) for x in x_vals]]
+            else:
+                plot_val = [x_vals, [self.predict(x) for x in x_vals]]
+        subtitle = '\n Scaler: ' + scaler + ' ,Loss function: '+  self.loss_function + ' ,Objective:' + self.target
+        plt.title(title + subtitle)
+        plt.xlabel('Kms')
         plt.ylabel('Price')
         plt.plot(x_vals, y_vals, 'ro')
-        plt.plot(plot_val[0], plot_val[1], color="#1C7B9B", linestyle='-')
-        #plt.plot(tmp_val[0], tmp_val[1], 'ro')
-        #plt.plot(plot_val[0], plot_val[1], color="#1C7B9B", linestyle='-')
-        plt.grid(True)
-        plt.show()
-
-    def plot(self, title = "None") :
-        tmp_val = self.data.copy()
-        tmp_val.pop(0)
-        # Convert to numeric if needed
-        tmp_val = [(float(x), float(y)) for x, y in tmp_val]
-        # Sort by X value
-        tmp_val.sort(key=lambda row: row[0])
-        # Separate into X and Y lists
-        x_vals = [row[0] for row in tmp_val]
-        y_vals = [row[1] for row in tmp_val]
-        # Prepare predicted values in the same X order
-        plot_val = [x_vals, [self.predict(x) for x in x_vals]]
-
-        plt.title('Real values: '+title)
-        plt.xlabel('Mileage')
-        plt.ylabel('Price')
-        plt.plot(x_vals, y_vals, 'ro')
-        plt.plot(plot_val[0], plot_val[1], color="#1C7B9B", linestyle='-')
+        if (predict):
+            plt.plot(plot_val[0], plot_val[1], color="#1C7B9B", linestyle='-')
         plt.grid(True)
         plt.show()
 
     def plot_loss(self):
-        plt.title('loss function')
+        scaler = ""
+        if (self.scaler  == 1):
+            scaler =  "MINMAX" 
+        else:
+            scaler = "STD"
+        title ="Loss Function"
+        subtitle = '\n Scaler: ' + scaler + ' ,Loss function: '+  self.loss_function + ' ,Objective:' + self.target
+        plt.title(title + subtitle)
         plt.xlabel('Epochs')
         plt.ylabel(self.loss_function)
         plt.plot(self.loss_acc, color="#1C7B9B", linestyle='-')
@@ -335,7 +310,7 @@ class linear_regression :
         self.loss_function = flags["loss_function"]
         self.loss_acc = []
         self.target = flags["target_function"]
-        self.epochs = 100000
+        self.epochs = 1000000
         self.delta = 0.00000001
         if (self.target=='NUMBER_EPOCHS'):
             self.epochs = flags["target_value"]
@@ -379,8 +354,7 @@ class linear_regression :
             epoch = epoch + 1
         
         self.denormalize_coef()
-        
-        
+            
     def predict_tmp(self, value) :
         if (self.tmp_theta_0==0.0 and self.tmp_theta_0==0.0):
             sys.exit("Error: No model load.")

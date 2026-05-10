@@ -12,6 +12,7 @@ GREEN = "\033[92m"
 YELLOW = "\033[93m"
 BLUE = "\033[94m"
 RESET = "\033[0m"  # Reset to default color
+ORANGE = "\033[38;5;208m" 
 
 flags = {"scaler": 1, "plot_standardized": 0, "plot_original": 0, "plot_loss":0, "print_error": 0, "loss_function": "MAE", "target_function": "DELTA_LOSS", "target_value":0, "learning_rate":0}
 learning_rate = 0
@@ -23,9 +24,14 @@ loss_cont = 0
 target_cont = 0
 data_filename = ""
 error = False
+help = False
 for arg in sys.argv :
     if arg.startswith("-"): # check flags
         check = False
+        if arg =="-h":
+            error = True
+            help = True
+            break
         if arg == "-sm" :
             flags["scaler"] = 1
             scaler_cont += 1
@@ -83,21 +89,21 @@ if (loss_cont>1):
 if (target_cont>1):
     print (f"{RED}Error: Too many target function chosse only one. -dd or -de.{RESET}", loss_cont)
     error = True
-if no_flag_cont != 2 :
+if no_flag_cont != 2 and not help:
     print (f"{RED}Error: Incorrect number of parameters.{RESET}", no_flag_cont)
     error = True
     
 if error:
     print (f"{GREEN}Usage: python train.py <data_file.csv> <flags>{RESET}")
-    print ("Choose Standarization method flags:")
-    print ("-sm (default) Min Max ")
-    print ("-ss")
-    print ("Choose Loss function flags:")
-    print ("-mae (default)")
-    print ("-mse")
-    print ("Choose Objective flags:")
-    print ("-dd (default= 0.0000001) : Define delta loss between epochs")
-    print ("-de : Define number of epochs")
+    print (f"{YELLOW}Choose Standarization method flags:")
+    print (f"-sm (default) Min Max Feature Scaling")
+    print (f"-ss {RESET}")
+    print (f"{BLUE}Choose Loss function flags:")
+    print (f"-mae (default)")
+    print (f"-mse{RESET}")
+    print (f"{ORANGE}Choose Objective flags:")
+    print (f"-dd (default= 0.0000001) : Define delta loss between epochs")
+    print (f"-de : Define number of epochs{RESET}")
     print ("Plotting flags:")
     print ("-po : data")
     print ("-ps : Plot standarize data")
@@ -167,8 +173,8 @@ filename_with_date = f"{filename}_{fecha_actual}.csv"
 data.save_model("model")
 # Show results
 if flags["plot_standardized"] == 1 :
-    data.plot_predict_standardized()
+    data.plot(std = True, predict = True)
 if flags["plot_original"] == 1 :
-    data.plot()
+    data.plot(std = False, predict = True)
 if flags["plot_loss"] == 1 :
     data.plot_loss()
