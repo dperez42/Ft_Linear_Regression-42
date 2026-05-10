@@ -97,7 +97,7 @@ if error:
     print (f"{GREEN}Usage: python train.py <data_file.csv> <flags>{RESET}")
     print (f"{YELLOW}Choose Standarization method flags:")
     print (f"-sm (default) Min Max Feature Scaling")
-    print (f"-ss {RESET}")
+    print (f"-ss {RESET} Standarization Feature Scaling")
     print (f"{BLUE}Choose Loss function flags:")
     print (f"-mae (default)")
     print (f"-mse{RESET}")

@@ -6,10 +6,6 @@ We will have to implement a program that predicts the price of a car by using a 
 
 *The implementation of this project will be done in Python.*
 
-> I will only explain the concepts required for the second part of the project.
->
-> The first part is literally *read a file, parse floats and use them to compute user input*.
-
 ## Table of Contents
 - [Usage](#usage) 
 - [Concepts needed for the project](#concepts-needed-for-the-project) 🧠
@@ -21,6 +17,33 @@ We will have to implement a program that predicts the price of a car by using a 
 - [Resources](#resources) 📖
 
 # Usage
+
+Usage: python train.py <data_file.csv> <flags>
+
+Choose Standarization method flags:
+-sm (default): Min Max Feature Scaling.
+-ss : Standarization Feature Scaling.
+
+Choose Loss function flags:
+-mae (default): Mean Absolute Error.
+-mse : Mean Squared Error.
+
+Choose Objective flags:
+-dd (default= 0.0000001): Define delta loss between epochs.
+-de : Define number of epochs.
+
+Choose Plotting flags:
+-po : Plot raw data.
+-ps : Plot standarize data.
+-pl : Plot loss.
+
+Choose Logs flags:
+-err : To view logs while trainning.
+## Trainning
+
+## Make a prediction
+
+
 
 # Concepts needed for the project
 
